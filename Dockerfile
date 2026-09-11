@@ -4,10 +4,10 @@ FROM golang:1.23 AS builder
 
 WORKDIR /src
 
-COPY go.mod go.sum ./
+COPY go.mod ./
 RUN go mod download
 
-COPY main.go ./
+COPY *.go ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o /out/server .
 
