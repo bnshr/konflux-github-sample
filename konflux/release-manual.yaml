@@ -1,0 +1,13 @@
+# One-shot manual release for an existing passing snapshot.
+# Replace the snapshot name if triggering again for a newer build.
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  generateName: konflux-github-sample-
+  namespace: experimental-ptp-tenant
+  labels:
+    release.appstudio.openshift.io/automated: "false"
+    release.appstudio.openshift.io/author: bmandal
+spec:
+  releasePlan: konflux-github-sample-release
+  snapshot: konflux-learning-20260911-073413-000

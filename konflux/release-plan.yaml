@@ -1,0 +1,32 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ReleasePlan
+metadata:
+  name: konflux-github-sample-release
+  namespace: experimental-ptp-tenant
+  labels:
+    release.appstudio.openshift.io/author: bmandal
+    release.appstudio.openshift.io/auto-release: "true"
+    release.appstudio.openshift.io/standing-attribution: "true"
+spec:
+  application: konflux-learning
+  data:
+    singleComponentMode: true
+    mapping:
+      components:
+        - name: konflux-github-sample-be197
+          repositories:
+            - url: quay.io/rh-ee-bmandal/konflux-github-sample-release
+              tags:
+                - latest
+                - "{{ git_sha }}"
+  tenantPipeline:
+    pipelineRef:
+      resolver: git
+      params:
+        - name: url
+          value: https://github.com/konflux-ci/community-catalog.git
+        - name: revision
+          value: production
+        - name: pathInRepo
+          value: pipelines/push-snapshot-to-quay/push-snapshot-to-quay.yaml
+    serviceAccountName: build-pipeline-konflux-github-sample-be197
